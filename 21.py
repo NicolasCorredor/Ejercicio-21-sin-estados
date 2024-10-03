@@ -104,3 +104,4 @@ def ganador(mano1,mano2):
     else:
         print("--------GANO LA CASA----------")
 ganador(pedirCarta(mezclar(),manoInicial(mezclar(),[])),juegoCasa(mezclar(),manoInicialCasa(mezclar(),[])))
+
