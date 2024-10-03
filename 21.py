@@ -32,8 +32,18 @@ def az(baraja):
 #Aun no se validan repetidos
 def pedirCarta(baraja,mano):
     print("TURNO DEL JUGADOR")
-    while(True):
-     if(input("1: Pedir Carta\n0: Plantar\n")=="1"):
+
+    # verifica si el jugador tiene un Blackjack (21 con 2 cartas)
+    if az(mano) == 21 and len(mano) == 2:
+        print("FELICITACIONES EL JUGADOR GANA CON BLACKJACK")
+        return mano
+    
+    while True:
+        if az(mano) == 21:  # verifica si el jugador ya tiene 21 para que ya no pueda pedir mas cartas
+            print("FELICITACIONES EL JUGADOR GANA CON 21")
+            break
+
+        if(input("1: Pedir Carta\n0: Plantar\n")=="1"):
           mano.append(baraja[random.randint(0,51)])
           print("\n")
           print(f"Mano: {mano}")
@@ -42,7 +52,7 @@ def pedirCarta(baraja,mano):
               print("Perdiste")
               break
 
-     else:
+        else:
           break
     return mano
 
@@ -52,6 +62,13 @@ def manoInicial(baraja,mano):
     for i in range(2):
         mano.append(baraja[random.randint(0,51)]) 
     print(f"Su mano inicial es: {mano}\nEl valor es: {az(mano)}")
+    return mano
+
+def manoInicialCasa(baraja,mano):
+    print("\n")
+    for i in range(2):
+        mano.append(baraja[random.randint(0,51)]) 
+    print(f"Mano de la casa: {mano}\nEl valor es: {az(mano)}")
     return mano
 
 #Crea la baraja en orden
@@ -82,8 +99,8 @@ def juegoCasa(baraja,mano):
 #Mano 1 va a ser el jugdor y mano 2 va a ser el dealer
 #Tocó crear la función ganador por que sino no sabia como poner mas de una condición y que no se hicieran 2 juegos distintos
 def ganador(mano1,mano2):
-    if (az(mano2)<az(mano1)<21) or az(mano2)>21:
+    if (az(mano2)<az(mano1)<22) or az(mano2)>21:
         print("----------GANO EL JUGADOR----------")
     else:
         print("--------GANO LA CASA----------")
-ganador(pedirCarta(mezclar(),manoInicial(mezclar(),[])),juegoCasa(mezclar(),manoInicial(mezclar(),[])))
+ganador(pedirCarta(mezclar(),manoInicial(mezclar(),[])),juegoCasa(mezclar(),manoInicialCasa(mezclar(),[])))
