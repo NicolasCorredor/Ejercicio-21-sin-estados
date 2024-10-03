@@ -5,6 +5,8 @@ def Valor(valor):
         return valor
     elif(valor=="J" or valor=="Q" or valor=="K"):
         return 10
+    elif valor == "A":
+        return 11  # El As es inicialmente 11
     else:
         return 0
 #esta función suma la lista haciendo uso de recursión
@@ -14,13 +16,16 @@ def sumbaraja(baraja):
     return Valor(baraja[0][0])+sumbaraja(baraja[1:])
 
  #verifica el estado del az, realmente esta es función que se llama para sumar           
-def az(baraja):   
-    if "A" not in([num for tupla in baraja for num in tupla]):
-        return sumbaraja(baraja)
-    elif sumbaraja(baraja)<10:
-        return sumbaraja(baraja)+11
+def az(baraja):
+    if baraja == []:  
+        return 0
+    if baraja[0][0] == "A":  # Si la carta actual es un A
+        if sumbaraja(baraja[1:]) <= 10:  #suma restante menor o igual a 10
+            return 11 + az(baraja[1:])  # cuenta el A como 11
+        else:
+            return 1 + az(baraja[1:])  # cuenta el A como 1
     else:
-        return sumbaraja(baraja)+1
+        return Valor(baraja[0][0]) + az(baraja[1:])
 
 
 
@@ -60,7 +65,7 @@ def mezclar():
 def juegoCasa(baraja,mano):
     #El while true lo rompo solo cuando supera los 21 o solo cuando se planta
     while(True):
-        if(az(mano)<16):
+        if(az(mano)<=16):
             print("\n")
             mano.append(baraja[random.randint(0,51)])
             print("LA CASA PIDIO CARTA")
