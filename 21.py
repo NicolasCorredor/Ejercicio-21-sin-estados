@@ -82,7 +82,7 @@ def juegoCasa(baraja,mano):
 #Mano 1 va a ser el jugdor y mano 2 va a ser el dealer
 #Tocó crear la función ganador por que sino no sabia como poner mas de una condición y que no se hicieran 2 juegos distintos
 def ganador(mano1,mano2):
-    if (az(mano2)<az(mano1)<21) or az(mano2)>21:
+    if (az(mano2)<az(mano1)<22) or az(mano2)>21:
         print("----------GANO EL JUGADOR----------")
     else:
         print("--------GANO LA CASA----------")
